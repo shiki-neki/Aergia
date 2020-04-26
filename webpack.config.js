@@ -4,13 +4,13 @@ const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-// const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = (env, argv) => ({
   mode: argv && argv.mode || 'development',
   devtool: (argv && argv.mode || 'development') === 'production' ? 'source-map' : 'eval',
 
-  entry: './src/app.js',
+  entry: './src/main.js',
 
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -61,14 +61,10 @@ module.exports = (env, argv) => ({
       template: path.resolve(__dirname, 'static', 'index.html'),
       inject: true
     }),
-    // new SWPrecacheWebpackPlugin({
-    //   cacheId: 'todo-vue-pwa',
-    //   filename: 'service-worker-cache.js',
-    //   staticFileGlobs: ['dist/**/*.{js,css}', '/'],
-    //   minify: true,
-    //   stripPrefix: 'dist/',
-    //   dontCacheBustUrlsMatching: /\.\w{6}\./
-    // }),
+    new WorkboxPlugin.GenerateSW({
+       clientsClaim: true,
+       skipWaiting: true,
+     }),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'static'),
       to: path.resolve(__dirname, 'dist'),
