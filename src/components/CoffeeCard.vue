@@ -17,9 +17,3 @@ import NewCardButton from './NewCardButton';
     }
     export default CoffeeCard
 </script>
-<style>
-    #coffee-card {
-        border: 1px solid lemonchiffon;
-        padding: 30px;
-    }
-</style>

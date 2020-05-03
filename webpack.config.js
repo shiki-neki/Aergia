@@ -30,10 +30,11 @@ module.exports = (env, argv) => ({
         loader: 'babel-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
           'vue-style-loader',
-          'css-loader'
+          'css-loader',
+          'sass-loader'
         ],
         exclude: /\.module\.css$/
       }
