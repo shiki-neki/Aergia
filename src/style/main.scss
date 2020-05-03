@@ -1,4 +1,4 @@
-#coffee-card {
-    border: 1px solid lemonchiffon;
-    padding: 30px;
-}
+@charset "UTF-8";
+
+@import './base/_reset';
+@import './components/_coffee_card';
