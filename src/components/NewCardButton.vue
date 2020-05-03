@@ -1,12 +1,12 @@
 <template>
-  <button>{{ message }}</button>
+  <button>{{ label }}</button>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      message: 'Hello World',
+      label: 'New Entry',
     };
   },
 };

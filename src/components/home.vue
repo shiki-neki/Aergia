@@ -1,16 +1,16 @@
 <template>
   <div>
     <h1>Home page for coffee diary</h1>
-    <new-card></new-card>
+    <new-card-btn></new-card-btn>
   </div>
 </template>
 
 <script>
-import NewCard from './NewCardButton';
+import NewCardButton from './NewCardButton';
 
 export default {
   components: {
-    'new-card': NewCard
+    'new-card-btn': NewCardButton
   }
 }
 </script>
