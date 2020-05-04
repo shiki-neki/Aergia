@@ -35,12 +35,13 @@
         <div id="rating"></div>
         <div></div>
         <p> You clicked me {{ count }} times!</p>
+        <save-button></save-button>
     </form>
 </template>
 
 <script>
 import NewCardButton from './NewCardButton';
-
+import SaveButton from './SaveButton';
     var CoffeeCard = {
         props: ['count'],
         data() {
@@ -49,6 +50,9 @@ import NewCardButton from './NewCardButton';
                 flavor: '',
                 overal: ''
             }
+        },
+        components: {
+            'save-button': SaveButton
         }
     }
     export default CoffeeCard
