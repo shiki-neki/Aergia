@@ -2,6 +2,7 @@ import _ from 'lodash'
 import Vue from 'vue'
 import app from './app.vue'
 import router from './router'
+import './style/main.scss'
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -18,6 +19,8 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { app},
+  components: { 
+    app
+  },
   template: '<app/>'
 })
