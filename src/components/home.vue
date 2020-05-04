@@ -3,7 +3,7 @@
     <h1>Home page for coffee diary</h1>
     <ul id="coffee-cards">
       <li v-for="(card, index) in cards" :key="index">
-        <coffee-card :count="card"></coffee-card>
+        <coffee-card :card="card" :index="index"></coffee-card>
         <div class="card-btns">
           <save-btn></save-btn>
           <remove-btn v-on:remove="removeCard" :index="index"></remove-btn>
@@ -19,6 +19,23 @@ import NewCardButton from './NewCardButton';
 import CoffeeCard from './CoffeeCard';
 import SaveButton from './SaveButton';
 import RemoveButton from './RemoveButton'
+function generateEmptyCard() {
+  return { 
+    aroma: '',
+    aromaNotes: '',
+    acidity: '',
+    acidityNotes: '',
+    sweetness: '',
+    sweetnessNotes: '',
+    body: '',
+    bodyNotes: '12345',
+    finish: '',
+    finishNotes: '',
+    blend: '',
+    flavor: '',
+    overall: ''
+  }
+}
 export default {
   components: {
     'new-card-btn': NewCardButton,
@@ -29,7 +46,7 @@ export default {
   data() {
     return {
       cards: [],
-    newCard: null
+      newCard: null
     }
   },
   mounted() {
@@ -46,7 +63,7 @@ export default {
       if(!this.addCard) {
         return;
       }
-      this.cards.push(this.addCard);
+      this.cards.push(generateEmptyCard());
       this.saveCard();
     },
     removeCard(i) {
@@ -56,6 +73,14 @@ export default {
     saveCard() {
       const parsed = JSON.stringify(this.cards);
       localStorage.setItem('cards', parsed);
+    }
+  },
+  watch: {
+    cards:  {
+      deep: true,
+      handler(value) { 
+        this.saveCard()
+      }
     }
   }
 }
