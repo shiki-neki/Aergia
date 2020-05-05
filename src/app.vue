@@ -21,6 +21,10 @@ export default {
       {
         name: 'Home',
         to: '/'
+      },
+      {
+        name: 'My cards',
+        to: '/mycards'
       }
     ]
   })
