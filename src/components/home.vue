@@ -2,31 +2,85 @@
   <div>
     <h1>Home page for coffee diary</h1>
     <ul id="coffee-cards">
-      <li v-for="(card, index) in count" :key="index">
-        <coffee-card :count="card"></coffee-card>
+      <li v-for="(card, index) in cards" :key="index">
+        <coffee-card :card="card" :index="index"></coffee-card>
+        <div class="card-btns">
+          <save-btn></save-btn>
+          <remove-btn v-on:remove="removeCard" :index="index"></remove-btn>
+        </div>
       </li>
     </ul>
-    <new-card-btn v-on:addCount="newCard"></new-card-btn>
+    <new-card-btn v-on:addCount="addCard"></new-card-btn>
   </div>
 </template>
 
 <script>
 import NewCardButton from './NewCardButton';
 import CoffeeCard from './CoffeeCard';
+import SaveButton from './SaveButton';
+import RemoveButton from './RemoveButton'
+function generateEmptyCard() {
+  return { 
+    aroma: '',
+    aromaNotes: '',
+    acidity: '',
+    acidityNotes: '',
+    sweetness: '',
+    sweetnessNotes: '',
+    body: '',
+    bodyNotes: '12345',
+    finish: '',
+    finishNotes: '',
+    blend: '',
+    flavor: '',
+    overall: ''
+  }
+}
 export default {
   components: {
     'new-card-btn': NewCardButton,
-    'coffee-card': CoffeeCard
+    'coffee-card': CoffeeCard,
+    'save-btn': SaveButton,
+    'remove-btn': RemoveButton
   },
-  data () {
+  data() {
     return {
-      count: []
+      cards: [],
+      newCard: null
+    }
+  },
+  mounted() {
+    if(localStorage.getItem('cards')) {
+      try {
+        this.cards = JSON.parse(localStorage.getItem('cards'))
+      } catch(e) {
+        localStorage.removeItem('cards')
+      }
     }
   },
   methods: {
-    newCard: function(e) {
-      console.log(this)
-      this.count.push('test');
+    addCard() {
+      if(!this.addCard) {
+        return;
+      }
+      this.cards.push(generateEmptyCard());
+      this.saveCard();
+    },
+    removeCard(i) {
+      this.cards.splice(i, 1);
+      this.saveCard()
+    },
+    saveCard() {
+      const parsed = JSON.stringify(this.cards);
+      localStorage.setItem('cards', parsed);
+    }
+  },
+  watch: {
+    cards:  {
+      deep: true,
+      handler(value) { 
+        this.saveCard()
+      }
     }
   }
 }
