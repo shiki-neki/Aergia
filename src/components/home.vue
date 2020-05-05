@@ -65,7 +65,7 @@ export default {
     }
     if(localStorage.getItem('storedCards')) {
       try {
-        this.cards = JSON.parse(localStorage.getItem('storedCards'))
+        this.storedCards = JSON.parse(localStorage.getItem('storedCards'))
       } catch(e) {
         localStorage.removeItem('storedCards')
       }
