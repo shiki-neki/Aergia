@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>Home page for coffee diary</h1>
-    <ul id="coffee-cards">
+    <ul class="coffee-cards">
       <li v-for="(card, index) in cards" :key="index">
         <coffee-card :card="card" :index="index"></coffee-card>
         <div class="card-btns">
-          <save-btn></save-btn>
+          <save-btn v-on:store="storeCard" :index="index"></save-btn>
           <remove-btn v-on:remove="removeCard" :index="index"></remove-btn>
         </div>
       </li>
@@ -21,15 +21,20 @@ import SaveButton from './SaveButton';
 import RemoveButton from './RemoveButton'
 function generateEmptyCard() {
   return { 
-    aroma: '',
+    aromaQual: '',
+    aromaQuan: '',
     aromaNotes: '',
-    acidity: '',
+    acidityQual: '',
+    acidityQuan: '',
     acidityNotes: '',
-    sweetness: '',
+    sweetnessQual: '',
+    sweetnessQuan: '',
     sweetnessNotes: '',
-    body: '',
-    bodyNotes: '12345',
-    finish: '',
+    bodyQual: '',
+    bodyQuan: '',
+    bodyNotes: '',
+    finishQual: '',
+    finishQuan: '',
     finishNotes: '',
     blend: '',
     flavor: '',
@@ -46,6 +51,7 @@ export default {
   data() {
     return {
       cards: [],
+      storedCards: [],
       newCard: null
     }
   },
@@ -55,6 +61,13 @@ export default {
         this.cards = JSON.parse(localStorage.getItem('cards'))
       } catch(e) {
         localStorage.removeItem('cards')
+      }
+    }
+    if(localStorage.getItem('storedCards')) {
+      try {
+        this.storedCards = JSON.parse(localStorage.getItem('storedCards'))
+      } catch(e) {
+        localStorage.removeItem('storedCards')
       }
     }
   },
@@ -73,6 +86,12 @@ export default {
     saveCard() {
       const parsed = JSON.stringify(this.cards);
       localStorage.setItem('cards', parsed);
+    },
+    storeCard(i) {
+      var card = this.cards.splice(i, 1)[0];
+      this.storedCards.push(card);
+      const stored = JSON.stringify(this.storedCards);
+      localStorage.setItem('storedCards', stored);
     }
   },
   watch: {
