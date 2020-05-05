@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Home page for coffee diary</h1>
-    <ul id="coffee-cards">
+    <ul class="coffee-cards">
       <li v-for="(card, index) in cards" :key="index">
         <coffee-card :card="card" :index="index"></coffee-card>
         <div class="card-btns">
@@ -61,6 +61,13 @@ export default {
         this.cards = JSON.parse(localStorage.getItem('cards'))
       } catch(e) {
         localStorage.removeItem('cards')
+      }
+    }
+    if(localStorage.getItem('storedCards')) {
+      try {
+        this.cards = JSON.parse(localStorage.getItem('storedCards'))
+      } catch(e) {
+        localStorage.removeItem('storedCards')
       }
     }
   },
