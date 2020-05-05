@@ -5,7 +5,7 @@
       <li v-for="(card, index) in cards" :key="index">
         <coffee-card :card="card" :index="index"></coffee-card>
         <div class="card-btns">
-          <save-btn></save-btn>
+          <save-btn v-on:store="storeCard" :index="index"></save-btn>
           <remove-btn v-on:remove="removeCard" :index="index"></remove-btn>
         </div>
       </li>
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       cards: [],
+      storedCards: [],
       newCard: null
     }
   },
@@ -78,6 +79,12 @@ export default {
     saveCard() {
       const parsed = JSON.stringify(this.cards);
       localStorage.setItem('cards', parsed);
+    },
+    storeCard(i) {
+      var card = this.cards.splice(i, 1)[0];
+      this.storedCards.push(card);
+      const stored = JSON.stringify(this.storedCards);
+      localStorage.setItem('storedCards', stored);
     }
   },
   watch: {
