@@ -9,6 +9,11 @@
                 </div>
             </li>
         </ul>
+        <ul>
+            <li v-for="(card, index) in storedCards" :key="index">
+                <stored-card :card="card" :index="index"></stored-card>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -16,13 +21,14 @@
 // import SaveButtom from './SaveButton';
 import RemoveButton from './RemoveButton';
 import CoffeeCard from './CoffeeCard';
+import StoredCard from './StoredCard'
 
-const cards = localStorage.getItem('storedCards');
 export default {
     components: {
         'coffee-card': CoffeeCard,
         // 'save-btn': SaveButton,
-        'remove-btn': RemoveButton
+        'remove-btn': RemoveButton,
+        'stored-card': StoredCard
     },
     data() {
         return {
