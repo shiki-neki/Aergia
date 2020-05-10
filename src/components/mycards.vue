@@ -1,62 +1,22 @@
 <template>
     <div>
         <h1>My cards (test)</h1>
-        <ul v-if="isEditing" class="coffee-cards">
-            <li v-for="(card, index) in storedCards" :key="index">
-                <coffee-card :card="card" :index="index"></coffee-card>
-                <div class="card-btns">
-                    <remove-btn v-on:remove="removeStoredCard" :index="index"></remove-btn>
-                </div>
-            </li>
-        </ul>
-        <ul v-else>
-            <li v-for="(card, index) in storedCards" :key="index">
-                <stored-card :card="card" :index="index"></stored-card>
-                <div class="card-btns">
-                </div>
-            </li>
-        </ul>
-        <edit-btn v-on:toggleEditing="toggleEditing" :isEditing="isEditing"></edit-btn>
+        <div v-for="(card, index) in storedCards" :key="index">
+            <my-cards-item :card="card" v-on:remove="removeStoredCard(index)" v-on:save="saveStoredCard(index)"/>
+        </div>
     </div>
 </template>
 
 <script>
-import SaveButton from './SaveButton';
-import RemoveButton from './RemoveButton';
-import EditButton from './EditButton';
-import CoffeeCard from './CoffeeCard';
-import StoredCard from './StoredCard';
+import MyCardsItem from './MyCardsItem';
 
 export default {
     components: {
-        'coffee-card': CoffeeCard,
-        'save-btn': SaveButton,
-        'edit-btn': EditButton,
-        'remove-btn': RemoveButton,
-        'stored-card': StoredCard
+        'my-cards-item': MyCardsItem
     },
     data() {
         return {
-            storedCards: [],
-            aromaQual: '',
-            aromaQuan: '',
-            aromaNotes: '',
-            acidityQual: '',
-            acidityQuan: '',
-            acidityNotes: '',
-            sweetnessQual: '',
-            sweetnessQuan: '',
-            sweetnessNotes: '',
-            bodyQual: '',
-            bodyQuan: '',
-            bodyNotes: '',
-            finishQual: '',
-            finishQuan: '',
-            finishNotes: '',
-            blend: '',
-            flavor: '',
-            overall: '',
-            isEditing: false
+            storedCards: []
         }
     },
     mounted(){
@@ -76,9 +36,6 @@ export default {
         saveStoredCard() {
             const parsed = JSON.stringify(this.cards);
             localStorage.setItem('storedCards', parsed);
-        },
-        toggleEditing() {
-            this.isEditing = !this.isEditing;
         }
     }
 }
