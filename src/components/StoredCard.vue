@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import EditButton from './EditButton'
 import CoffeeCard from './CoffeeCard'
 export default {
     props: ['card', 'index'],

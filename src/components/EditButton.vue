@@ -1,11 +1,16 @@
 <template>
-    <button> {{ label }} </button>
+    <button v-on:click="$emit('toggleEditing')"> {{ label }} </button>
 </template>
 <script>
 export default {
+    props: ['isEditing'],
     data() {
         return {
-            label: 'Edit'
+        }
+    },
+    computed: {
+        label: function () {
+            return (this.isEditing ? "Save" : "Edit");
         }
     }
 }
