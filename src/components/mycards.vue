@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>My cards</h1>
+        <h1>My cards (test)</h1>
         <ul v-if="isEditing" class="coffee-cards">
             <li v-for="(card, index) in storedCards" :key="index">
                 <coffee-card :card="card" :index="index"></coffee-card>
